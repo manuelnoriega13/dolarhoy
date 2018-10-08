@@ -1,10 +1,12 @@
 package com.manoriega.dolarhoy.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "dolar")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Dolar {
     @Id
     @Column

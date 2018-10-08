@@ -1,9 +1,13 @@
 package com.manoriega.dolarhoy.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "euro")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class Euro {
     @Id
     @Column

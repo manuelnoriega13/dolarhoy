@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 public class HtmlDataParser {
 
-    public Double getCompraDolar(){
+    public Double getCompraDolar() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
             Elements element = doc.getElementsByClass("col-md-6 compra");
@@ -29,7 +29,7 @@ public class HtmlDataParser {
         return null;
     }
 
-    public Double getVentaDolar(){
+    public Double getVentaDolar() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
             Elements element = doc.getElementsByClass("col-md-6 venta");
@@ -50,19 +50,23 @@ public class HtmlDataParser {
         return null;
     }
 
-    public String getUltimaActualizacionDolar(){
+    public String getUltimaActualizacionDolar() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
             Elements element = doc.getElementsByClass("update");
             Element r2 = element.get(0);
-            return r2.text();
+            String[] fechaHora = r2.text().split(" ");
+            String[] fecha = fechaHora[0].split("/");
+            String finalFecha = fecha[0] + "-" + fecha[1] + "-" + fecha[2];
+            String end = finalFecha + " " + fechaHora[1];
+            return end;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public Double getCompraEuro(){
+    public Double getCompraEuro() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
             Elements element = doc.getElementsByClass("col-md-6 compra");
@@ -84,7 +88,7 @@ public class HtmlDataParser {
         return null;
     }
 
-    public Double getVentaEuro(){
+    public Double getVentaEuro() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
             Elements element = doc.getElementsByClass("col-md-6 venta");
@@ -98,7 +102,6 @@ public class HtmlDataParser {
             Double dolar = Double.parseDouble(foo);
             System.out.println(dolar);
             return dolar;
-//            pull-righ
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
@@ -106,12 +109,16 @@ public class HtmlDataParser {
         return null;
     }
 
-    public String getUltimaActualizacionEuro(){
+    public String getUltimaActualizacionEuro() {
         try {
             Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
             Elements element = doc.getElementsByClass("update");
             Element r2 = element.get(0);
-            return r2.text();
+            String[] fechaHora = r2.text().split(" ");
+            String[] fecha = fechaHora[0].split("/");
+            String finalFecha = fecha[0] + "-" + fecha[1] + "-" + fecha[2];
+            String end = finalFecha + " " + fechaHora[1];
+            return end;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
