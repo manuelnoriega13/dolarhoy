@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "dolar")
@@ -12,10 +13,16 @@ public class Dolar {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
     private Double compra;
     private Double venta;
     private String fechaGuardado;
     private String fechaUltimaActualizacoin;
+
+    @PrePersist
+    public void preSave() {
+
+    }
 
     public Long getId() {
         return id;
