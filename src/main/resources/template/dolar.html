@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
+
+    <title th:text="${dolar_title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-    <title th:text="${pDolarHoy}"></title>
+    <!--<link rel="stylesheet" href="css/custom.css">-->
 
 </head>
 <body>
@@ -22,46 +23,34 @@
         </ul>
     </div>
 </nav>
-
+<br>
 <div class="container">
-    <div class="text-secondary borde text">
-        <h1>pDolarHoy</h1>
+    <div class="text-secondary border">
+        <h1 th:text="${dolar_title}"></h1>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>id</th>
+                <th>compra</th>
+                <th>venta</th>
+                <th>fecha guardado</th>
+                <th>fecha dolarhoy</th>
+                <th>activo</th>
+                <th>editar</th>
+            </tr>
+            <tr th:each="Dolar: ${dolar}">
+                <th th:text="${Dolar.id}"></th>
+                <th th:text="${Dolar.compra}"></th>
+                <th th:text="${Dolar.venta}"></th>
+                <th th:text="${Dolar.fechaGuardado}"></th>
+                <th th:text="${Dolar.fechaUltimaActualizacoin}"></th>
+                <th th:text="${Dolar.activo}"></th>
+                <th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Dolar.id}">editar</a></th>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="text-justify">
-    <h1 class="text-info">pDolarHoy</h1>
-    <spam>Compra</spam>
-    <h1 th:text="${dolar_last.get().compra}"></h1>
-    <spam>Venta</spam>
-    <h1 th:text="${dolar_last.get().venta}"></h1>
-    <spam>Fecha Guardado</spam>
-    <h1 th:text="${dolar_last.get().fechaGuardado}"></h1>
-    <spam>Ultima Actualizacion</spam>
-    <h1 th:text="${dolar_last.get().fechaUltimaActualizacoin}"></h1>
-</div>
-
-<div>
-    <h1 class="text-danger">DolarHoy</h1>
-    <spam>Compra</spam>
-    <h1 th:text="${dolar_now.compra}"></h1>
-    <spam>Venta</spam>
-    <h1 th:text="${dolar_now.getVenta()}"></h1>
-    <spam>Ultima Actualizacion</spam>
-    <h1 th:text="${dolar_now.fechaUltimaActualizacoin}"></h1>
-</div>
-
-<div>
-    <a target="_blank" href="http://www.dolarhoy.com/cotizacion-dolar">DolarHoy</a>
-</div>
-
-<div class="container">
-    <hr>
-    <footer>
-        <img th:src="@{/images/logo.jpg}" alt="">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, minima!
-    </footer>
-</div>
-
 <script type="application/javascript" th:href="@{/js/jquery-3.3.1.js}"></script>
 <script type="application/javascript" th:href="@{/js/popper.js}"></script>
 <script type="application/javascript" th:href="@{/js/bootstrap.js}"></script>

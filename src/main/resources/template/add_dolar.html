@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">pDolarHoy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" arial-label="Toggle navigation">
+        <span class="navbar-toggler"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="http://localhost:8081/">Home</a></li>
+            <li class="nav-item "><a class="nav-link" href="http://localhost:8081/dolar">Dolar</a></li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <spam th:text="${title}"></spam>
+</div>
+
+<br>
+<br>
+
+<div th:object="${dolar}" th:remove="tag">
+    <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+    </ul>
+</div>
+
+<form th:action="@{/dolar_add}" th:object="${dolar}" method="post">
+    <div class="form-group">
+        <label class="col-sm-2 col-form-label">compra</label>
+        <div class="col-sm-6">
+            <input type="number" th:field="*{compra}" class="form-control" th:errorclass="'form-control alert-danger'">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('compra')}" th:errors="*{compra}"></small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 col-form-label">venta</label>
+        <div class="col-sm-6">
+            <input type="number" th:field="*{venta}" class="form-control" th:errorclass="'form-control alert-danger'">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('venta')}" th:errors="*{venta}"></small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 col-form-label">fecha guardado</label>
+        <div class="col-sm-6">
+            <input type="text" th:field="*{fechaGuardado}" class="form-control"
+                   th:errorclass="'form-control alert-danger'">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaGuardado')}"
+                   th:errors="*{fechaGuardado}"></small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-6">
+            <input type="submit" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+
+<script type="application/javascript" th:href="@{/js/jquery-3.3.1.js}"></script>
+<script type="application/javascript" th:href="@{/js/popper.js}"></script>
+<script type="application/javascript" th:href="@{/js/bootstrap.js}"></script>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org/">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title th:text="${title}"></title>-->
+<!--<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">-->
+<!--<a class="navbar-brand" href="#">pDolarHoy</a>-->
+<!--<button class="navbar-toggler" type="button" data-toggle="collapse" arial-label="Toggle navigation">-->
+<!--<span class="navbar-toggler"></span>-->
+<!--</button>-->
+<!--<div class="collapse navbar-collapse">-->
+<!--<ul class="navbar-nav mr-auto">-->
+<!--<li class="nav-item active"><a class="nav-link" href="http://localhost:8081/">Home</a></li>-->
+<!--<li class="nav-item "><a class="nav-link" href="http://localhost:8081/dolar">Dolar</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</nav>-->
+<!--<div>-->
+<!--<spam th:text="${title}"></spam>-->
+<!--</div>-->
+
+<!--<br>-->
+<!--<br>-->
+<!--<form th:action="@{/dolar_add}" th:object="${dolar}" method="post">-->
+<!--<table class="table table-bordered">-->
+<!--<tr>-->
+<!--<td style="width: 200px">compra</td>-->
+<!--<td><input type="number" th:field="*{venta}"></td>-->
+<!--</tr>-->
+
+<!--<tr>-->
+<!--<td>venta</td>-->
+<!--<td><input type="number" th:field="*{compra}"></td>-->
+<!--</tr>-->
+
+<!--<tr>-->
+<!--<td>fecha guardado</td>-->
+<!--<td><input type="text" th:field="*{fechaGuardado}"></td>-->
+<!--</tr>-->
+
+<!--<tr>-->
+<!--<td><input type="submit"></td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</form>-->
+
+<!--<script type="application/javascript" th:href="@{/js/jquery-3.3.1.js}"></script>-->
+<!--<script type="application/javascript" th:href="@{/js/popper.js}"></script>-->
+<!--<script type="application/javascript" th:href="@{/js/bootstrap.js}"></script>-->
+<!--</body>-->
+<!--</html>-->

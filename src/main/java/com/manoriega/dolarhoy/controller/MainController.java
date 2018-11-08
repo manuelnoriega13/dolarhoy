@@ -2,15 +2,17 @@ package com.manoriega.dolarhoy.controller;
 
 import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.repository.DolarRepo;
+import com.manoriega.dolarhoy.service.DolarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,48 +20,57 @@ import java.util.Optional;
 public class MainController {
 
     @Autowired
+    private DolarService dolarService;
+
+    @Autowired
     private DolarRepo dolarRepo;
 
-    @Value("${application.controller.title}")
-    private String title;
-
-    @Value("${application.controller.text1}")
-    private String text1 = "text1";
+    @GetMapping("/dolar")
+    public String getDolar(Model model) {
+        model.addAttribute("dolar_title", "paser DolarHoy");
+        model.addAttribute("dolar", dolarService.allActive());
+        return "dolar";
+    }
 
     @GetMapping("/")
-    public String getTitle(Model model) {
-        model.addAttribute("t1", title);
-        model.addAttribute("dolar_title", "paser DolarHoy");
-        model.addAttribute("dolar", dolarRepo.findAll(new Sort(Sort.Direction.DESC, "id")));
+    public String getIndex(Model model) {
+        model.addAttribute("pDolarHoy", "pDolarHoy");
+        model.addAttribute("dolar_last", dolarService.getLast());
+        model.addAttribute("dolar_now", dolarService.now());
         return "index";
     }
 
-    @GetMapping("/form")
-    public String getForm(Map<String, Object> model){
+    @GetMapping("dolar_add")
+    public String addDolar(Map<String, Object> model){
         Dolar dolar = new Dolar();
         model.put("dolar", dolar);
-        model.put("f1","dolar form");
-        return "form";
+        model.put("title", "pDolar_Add");
+        return "add_dolar";
     }
 
-    @GetMapping("/form/{id}")
-    public String edit(@PathVariable(value = "id") Long id, Map<String, Object> model){
-        Optional<Dolar> dolar =null;
+    @PostMapping("dolar_add")
+    public String addDolarSave(@Valid Dolar dolar, BindingResult result){
 
-        if (id > 0){
-            dolar = dolarRepo.findById(id);
-
-        }else{
-            return "redirect:/";
+        if (result.hasErrors()){
+            return "add_dolar";
         }
-        model.put("dolar",dolar);
-        model.put("titulo","editar");
-        return "form    ";
+        dolar.setActivo(true);
+        dolarRepo.save(dolar);
+        return "redirect:/dolar";
     }
 
-    @PostMapping("/form")
-    public String saveDolar(Dolar dolar){
-        dolarRepo.save(dolar);
-        return "redirect:/";
+    @GetMapping("dolar_add/{id}")
+    public String editDolar(@PathVariable(value = "id") Long id, Map<String, Object> model){
+
+        Optional<Dolar> dolar = null;
+
+        if(id > 0){
+             dolar = dolarService.getById(id);
+        }else{
+            return "redirect:/dolar";
+        }
+        model.put("dolar", dolar.get());
+        return "add_dolar";
     }
+
 }
