@@ -66,6 +66,7 @@ public class MainController {
 
         if(id > 0){
              dolar = dolarService.getById(id);
+//             dolarRepo.save(dolar.get());
         }else{
             return "redirect:/dolar";
         }

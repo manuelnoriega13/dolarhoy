@@ -76,4 +76,10 @@ public class DolarService {
         dolar.get().setActivo(true);
         dolarRepo.save(dolar.get());
     }
+
+    public void updateToUnActive(Long idDolar){
+        Optional<Dolar> dolar = dolarRepo.findById(idDolar);
+        dolar.get().setActivo(false);
+        dolarRepo.save(dolar.get());
+    }
 }
