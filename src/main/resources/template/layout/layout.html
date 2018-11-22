@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">pDolarHoy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" arial-label="Toggle navigation">
+            <span class="navbar-toggler"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link" href="http://localhost:8081/">Home</a></li>
+                <li class="nav-item "><a class="nav-link" href="http://localhost:8081/dolar">Dolar</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+</div>
+
+<footer th:fragment="footer" class="container">
+</footer>
+
+</body>
+</html>

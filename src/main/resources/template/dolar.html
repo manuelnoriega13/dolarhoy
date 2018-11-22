@@ -48,7 +48,7 @@
                 <th th:text="${Dolar.fechaUltimaActualizacoin}"></th>
                 <th th:text="${Dolar.activo}"></th>
                 <th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Dolar.id}">editar</a></th>
-                <th><a class="btn btn-danger btn-xs">eliminar</a></th>
+                <th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Dolar.id}" onclick="return confirm('esta seguro?');">eliminar</a></th>
             </tr>
         </table>
     </div>

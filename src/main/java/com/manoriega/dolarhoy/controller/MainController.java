@@ -41,7 +41,7 @@ public class MainController {
     }
 
     @GetMapping("dolar_add")
-    public String addDolar(Map<String, Object> model){
+    public String addDolar(Map<String, Object> model) {
         Dolar dolar = new Dolar();
         model.put("dolar", dolar);
         model.put("title", "pDolar_Add");
@@ -49,9 +49,9 @@ public class MainController {
     }
 
     @PostMapping("dolar_add")
-    public String addDolarSave(@Valid Dolar dolar, BindingResult result){
+    public String addDolarSave(@Valid Dolar dolar, BindingResult result) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "add_dolar";
         }
         dolar.setActivo(true);
@@ -60,18 +60,26 @@ public class MainController {
     }
 
     @GetMapping("dolar_add/{id}")
-    public String editDolar(@PathVariable(value = "id") Long id, Map<String, Object> model){
+    public String editDolar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
 
         Optional<Dolar> dolar = null;
 
-        if(id > 0){
-             dolar = dolarService.getById(id);
+        if (id > 0) {
+            dolar = dolarService.getById(id);
 //             dolarRepo.save(dolar.get());
-        }else{
+        } else {
             return "redirect:/dolar";
         }
         model.put("dolar", dolar.get());
         return "add_dolar";
     }
 
+    @GetMapping("dolar_delete/{id}")
+    public String deleteDolar(@PathVariable(value = "id") Long id) {
+
+        if (id > 0) {
+            dolarService.updateToUnActive(id);
+        }
+        return "redirect:/dolar";
+    }
 }
