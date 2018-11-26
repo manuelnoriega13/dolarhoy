@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:replace="layout/layout :: header">
+</header>
+
+<br>
+<br>
+<div class="container">
+    <div class="text-secondary border">
+        <h1 th:text="${euro_title}"></h1>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>id</th>
+                <th>compra</th>
+                <th>venta</th>
+                <th>fecha guardado</th>
+                <th>fecha dolarhoy</th>
+                <th>activo</th>
+                <!--<th>editar</th>-->
+                <!--<th>eliminar</th>-->
+            </tr>
+            <tr th:each="Euro: ${euro}">
+                <th th:text="${Euro.id}"></th>
+                <th th:text="${Euro.compra}"></th>
+                <th th:text="${Euro.venta}"></th>
+                <th th:text="${Euro.fechaGuardado}"></th>
+                <th th:text="${Euro.fechaUltimaActualizacoin}"></th>
+                <th th:text="${Euro.activo}"></th>
+                <!--<th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Euro.id}">editar</a></th>-->
+                <!--<th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Euro.id}"-->
+                       <!--onclick="return confirm('esta seguro?');">eliminar</a></th>-->
+            <!--</tr>-->
+        </table>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer">
+</footer>
+</body>
+</html>

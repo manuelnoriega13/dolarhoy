@@ -17,6 +17,7 @@ public class Euro {
     private Double venta;
     private String fechaGuardado;
     private String fechaUltimaActualizacoin;
+    private Boolean activo;
 
     public Long getId() {
         return id;
@@ -56,5 +57,13 @@ public class Euro {
 
     public void setFechaUltimaActualizacoin(String fechaUltimaActualizacoin) {
         this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 }

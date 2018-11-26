@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.controller;
 
 import com.manoriega.dolarhoy.model.Euro;
 import com.manoriega.dolarhoy.repository.EuroRepo;
+import com.manoriega.dolarhoy.service.EuroService;
 import com.manoriega.dolarhoy.util.HtmlDataParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,24 +21,21 @@ public class EuroController {
     @Autowired
     private EuroRepo euroRepo;
 
+    @Autowired
+    private EuroService euroService;
+
     @GetMapping("all")
     public List<Euro> all() {
-        return euroRepo.findAll(new Sort(Sort.Direction.DESC, "id"));
+        return euroService.all();
     }
 
     @GetMapping("last")
     public Optional<Euro> last() {
-        return euroRepo.findById(euroRepo.count());
+        return euroService.getLast();
     }
 
     @GetMapping("now")
     public Euro now() {
-        HtmlDataParser euroHtml = new HtmlDataParser();
-        Euro euro = new Euro();
-        euro.setCompra(euroHtml.getCompraEuro());
-        euro.setVenta(euroHtml.getVentaEuro());
-        euro.setFechaUltimaActualizacoin(euroHtml.getUltimaActualizacionEuro());
-        euro.setFechaGuardado(null);
-        return euro;
+        return euroService.now();
     }
 }

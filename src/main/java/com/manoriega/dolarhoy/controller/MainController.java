@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.controller;
 import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.repository.DolarRepo;
 import com.manoriega.dolarhoy.service.DolarService;
+import com.manoriega.dolarhoy.service.EuroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,9 @@ public class MainController {
 
     @Autowired
     private DolarRepo dolarRepo;
+
+    @Autowired
+    private EuroService euroService;
 
     @GetMapping("/dolar")
     public String getDolar(Model model) {
@@ -81,5 +85,13 @@ public class MainController {
             dolarService.updateToUnActive(id);
         }
         return "redirect:/dolar";
+    }
+
+    //    euro
+    @GetMapping("/euro")
+    public String getEuro(Model model) {
+        model.addAttribute("euro_title", "paser DolarHoy");
+        model.addAttribute("euro", euroService.allActive());
+        return "euro";
     }
 }

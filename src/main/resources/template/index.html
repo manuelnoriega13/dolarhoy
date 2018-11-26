@@ -1,69 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+<head th:replace="layout/layout :: head">
     <title th:text="${pDolarHoy}"></title>
-
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">pDolarHoy</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" arial-label="Toggle navigation">
-        <span class="navbar-toggler"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="http://localhost:8081/">Home</a></li>
-            <li class="nav-item "><a class="nav-link" href="http://localhost:8081/dolar">Dolar</a></li>
-        </ul>
-    </div>
-</nav>
 
-<div class="container">
-    <div class="text-secondary borde text">
-        <h1>pDolarHoy</h1>
-    </div>
-</div>
-<div class="text-justify">
-    <h1 class="text-info">pDolarHoy</h1>
-    <spam>Compra</spam>
-    <h1 th:text="${dolar_last.get().compra}"></h1>
-    <spam>Venta</spam>
-    <h1 th:text="${dolar_last.get().venta}"></h1>
-    <spam>Fecha Guardado</spam>
-    <h1 th:text="${dolar_last.get().fechaGuardado}"></h1>
-    <spam>Ultima Actualizacion</spam>
-    <h1 th:text="${dolar_last.get().fechaUltimaActualizacoin}"></h1>
+<header th:replace="layout/layout :: header">
+</header>
+
+<div th:replace="layout/layout :: onload">
 </div>
 
-<div>
-    <h1 class="text-danger">DolarHoy</h1>
-    <spam>Compra</spam>
-    <h1 th:text="${dolar_now.compra}"></h1>
-    <spam>Venta</spam>
-    <h1 th:text="${dolar_now.getVenta()}"></h1>
-    <spam>Ultima Actualizacion</spam>
-    <h1 th:text="${dolar_now.fechaUltimaActualizacoin}"></h1>
-</div>
-
-<div>
-    <a target="_blank" href="http://www.dolarhoy.com/cotizacion-dolar">DolarHoy</a>
-</div>
-
-<div class="container">
-    <hr>
-    <footer>
-        <img th:src="@{/images/logo.jpg}" alt="">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, minima!
-    </footer>
-</div>
-
-<script type="application/javascript" th:href="@{/js/jquery-3.3.1.js}"></script>
-<script type="application/javascript" th:href="@{/js/popper.js}"></script>
-<script type="application/javascript" th:href="@{/js/bootstrap.js}"></script>
+<footer th:replace="layout/layout :: footer">
+</footer>
 </body>
 </html>

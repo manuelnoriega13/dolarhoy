@@ -1,28 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title th:text="${dolar_title}"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-    <!--<link rel="stylesheet" href="css/custom.css">-->
-
+<head th:replace="layout/layout :: head">
 </head>
+
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">pDolarHoy</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" arial-label="Toggle navigation">
-        <span class="navbar-toggler"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="http://localhost:8081/">Home</a></li>
-            <li class="nav-item "><a class="nav-link" href="http://localhost:8081/dolar">Dolar</a></li>
-        </ul>
-    </div>
-</nav>
+<header th:replace="layout/layout :: header">
+</header>
+<br>
 <br>
 <div class="container">
     <div class="text-secondary border">
@@ -48,13 +32,15 @@
                 <th th:text="${Dolar.fechaUltimaActualizacoin}"></th>
                 <th th:text="${Dolar.activo}"></th>
                 <th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Dolar.id}">editar</a></th>
-                <th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Dolar.id}" onclick="return confirm('esta seguro?');">eliminar</a></th>
+                <th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Dolar.id}"
+                       onclick="return confirm('esta seguro?');">eliminar</a></th>
             </tr>
         </table>
     </div>
 </div>
-<script type="application/javascript" th:href="@{/js/jquery-3.3.1.js}"></script>
-<script type="application/javascript" th:href="@{/js/popper.js}"></script>
-<script type="application/javascript" th:href="@{/js/bootstrap.js}"></script>
+
+
+<footer th:replace="layout/layout :: footer">
+</footer>
 </body>
 </html>
