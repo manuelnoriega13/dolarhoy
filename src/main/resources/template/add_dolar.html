@@ -8,73 +8,74 @@
 <header th:replace="layout/layout :: header">
 </header>
 
-<div>
-    <spam th:text="${title}"></spam>
-</div>
 
-<br>
-<br>
+<div class="container py-4">  <!--form cantainer-->
+    <div class="card bg-dark text-white">
+        <div class="card-header" th:text="${title}"></div>
 
-<div>  <!--form cantainer-->
-    <div th:object="${dolar}" th:remove="tag">
-        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-        </ul>
+        <div class="card-body">
+
+            <div th:object="${dolar}" th:remove="tag">
+                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <form th:action="@{/dolar_add}" th:object="${dolar}" method="post">
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">compra</label>
+                    <div class="col-sm-6">
+                        <input th:field="*{compra}" class="form-control" th:errorclass="'form-control alert-danger'">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('compra')}"
+                               th:errors="*{compra}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">venta</label>
+                    <div class="col-sm-6">
+                        <input th:field="*{venta}" class="form-control" th:errorclass="'form-control alert-danger'">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('venta')}"
+                               th:errors="*{venta}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">fecha guardado</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{fechaGuardado}" class="form-control"
+                               th:errorclass="'form-control alert-danger'">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaGuardado')}"
+                               th:errors="*{fechaGuardado}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">fecha dolarhoy</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{fechaUltimaActualizacoin}" class="form-control"
+                               th:errorclass="'form-control alert-danger'">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaUltimaActualizacoin')}"
+                               th:errors="*{fechaUltimaActualizacoin}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <input type="hidden" th:field="*{id}" class="form-control"
+                               th:errorclass="'form-control alert-danger'">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <form th:action="@{/dolar_add}" th:object="${dolar}" method="post">
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label">compra</label>
-            <div class="col-sm-6">
-                <input th:field="*{compra}" class="form-control" th:errorclass="'form-control alert-danger'">
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('compra')}"
-                       th:errors="*{compra}"></small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label">venta</label>
-            <div class="col-sm-6">
-                <input th:field="*{venta}" class="form-control" th:errorclass="'form-control alert-danger'">
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('venta')}" th:errors="*{venta}"></small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label">fecha guardado</label>
-            <div class="col-sm-6">
-                <input type="text" th:field="*{fechaGuardado}" class="form-control"
-                       th:errorclass="'form-control alert-danger'">
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaGuardado')}"
-                       th:errors="*{fechaGuardado}"></small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label">fecha dolarhoy</label>
-            <div class="col-sm-6">
-                <input type="text" th:field="*{fechaUltimaActualizacoin}" class="form-control"
-                       th:errorclass="'form-control alert-danger'">
-                <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaUltimaActualizacoin')}"
-                       th:errors="*{fechaUltimaActualizacoin}"></small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-6">
-                <input type="hidden" th:field="*{id}" class="form-control"
-                       th:errorclass="'form-control alert-danger'">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-6">
-                <input type="submit" class="btn btn-primary">
-            </div>
-        </div>
-    </form>
 </div>
-
 <footer th:replace="layout/layout :: footer">
 </footer>
 
