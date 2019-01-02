@@ -8,38 +8,44 @@
 </header>
 <br>
 <br>
-<div class="container">
-    <div class="text-secondary border">
-        <h1 th:text="${dolar_title}"></h1>
-    </div>
-    <div>
-        <table class="table table-striped">
-            <tr>
-                <th>id</th>
-                <th>compra</th>
-                <th>venta</th>
-                <th>fecha guardado</th>
-                <th>fecha dolarhoy</th>
-                <th>activo</th>
-                <th>editar</th>
-                <th>eliminar</th>
-            </tr>
-            <tr th:each="Dolar: ${dolar}">
-                <th th:text="${Dolar.id}"></th>
-                <th th:text="${Dolar.compra}"></th>
-                <th th:text="${Dolar.venta}"></th>
-                <th th:text="${Dolar.fechaGuardado}"></th>
-                <th th:text="${Dolar.fechaUltimaActualizacoin}"></th>
-                <th th:text="${Dolar.activo}"></th>
-                <th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Dolar.id}">editar</a></th>
-                <th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Dolar.id}"
-                       onclick="return confirm('esta seguro?');">eliminar</a></th>
-            </tr>
-        </table>
+<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header" th:text="${dolar_title}"></div>
+
+        <div class="card-body">
+            <!--<div class="text-secondary border">-->
+            <!--<div class="card-body"></div>-->
+            <!--<h1 ></h1>-->
+            <!--</div>-->
+            <div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>id</th>
+                        <th>compra</th>
+                        <th>venta</th>
+                        <th>fecha guardado</th>
+                        <th>fecha dolarhoy</th>
+                        <th>activo</th>
+                        <th>editar</th>
+                        <th>eliminar</th>
+                    </tr>
+                    <tr th:each="Dolar: ${dolar}">
+                        <th th:text="${Dolar.id}"></th>
+                        <th th:text="${Dolar.compra}"></th>
+                        <th th:text="${Dolar.venta}"></th>
+                        <th th:text="${Dolar.fechaGuardado}"></th>
+                        <th th:text="${Dolar.fechaUltimaActualizacoin}"></th>
+                        <th th:text="${Dolar.activo}"></th>
+                        <th><a class="btn btn-primary btn-xs" th:href="@{/dolar_add/} + ${Dolar.id}">editar</a></th>
+                        <th><a class="btn btn-danger btn-xs" th:href="@{/dolar_delete/} + ${Dolar.id}"
+                               onclick="return confirm('esta seguro?');">eliminar</a></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-
-
 <footer th:replace="layout/layout :: footer">
 </footer>
 </body>

@@ -2,6 +2,7 @@ package com.manoriega.dolarhoy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.manoriega.dolarhoy.model.builder.DolarBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -43,13 +44,13 @@ public class Dolar {
     public Dolar() {
     }
 
-    public Dolar(Double compra, Double venta, String fechaGuardado, String fechaUltimaActualizacoin, Boolean activo) {
-        this.compra = compra;
-        this.venta = venta;
-        this.fechaGuardado = fechaGuardado;
-        this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
-        this.activo = activo;
-    }
+//    public Dolar(Double compra, Double venta, String fechaGuardado, String fechaUltimaActualizacoin, Boolean activo) {
+//        this.compra = compra;
+//        this.venta = venta;
+//        this.fechaGuardado = fechaGuardado;
+//        this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
+//        this.activo = activo;
+//    }
 
     public Long getId() {
         return id;
@@ -99,15 +100,52 @@ public class Dolar {
         this.activo = activo;
     }
 
-    @Override
-    public String toString() {
-        return "Dolar{" +
-                "id=" + id +
-                ", compra=" + compra +
-                ", venta=" + venta +
-                ", fechaGuardado='" + fechaGuardado + '\'' +
-                ", fechaUltimaActualizacoin='" + fechaUltimaActualizacoin + '\'' +
-                ", activo=" + activo +
-                '}';
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private Dolar dolar;
+
+        private Builder() {
+            this.dolar = new Dolar();
+        }
+
+
+        public Builder id(Long id) {
+            this.dolar.setId(id);
+            return this;
+        }
+
+        public Builder compra(Double compra) {
+            this.dolar.setCompra(compra);
+            return this;
+        }
+
+        public Builder venta(Double venta) {
+            this.dolar.setVenta(venta);
+            return this;
+        }
+
+        public Builder fechaGuardado(String fechaGuardado) {
+            this.dolar.setFechaGuardado(fechaGuardado);
+            return this;
+        }
+
+        public Builder fechaUltimaActualizacoin(String fechaUltimaActualizacoin) {
+            this.dolar.setFechaUltimaActualizacoin(fechaUltimaActualizacoin);
+            return this;
+        }
+
+        public Builder activo(Boolean activo) {
+            this.dolar.setActivo(activo);
+            return this;
+        }
+
+        public Dolar build() {
+            return this.dolar;
+        }
     }
 }
