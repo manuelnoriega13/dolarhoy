@@ -2,6 +2,7 @@ package com.manoriega.dolarhoy.model.builder;
 
 import com.manoriega.dolarhoy.model.Dolar;
 
+
 public class DolarBuilder {
 
     private Dolar dolar;

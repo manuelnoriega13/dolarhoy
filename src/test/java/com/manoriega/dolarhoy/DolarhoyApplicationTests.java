@@ -1,10 +1,11 @@
 package com.manoriega.dolarhoy;
 
+import com.manoriega.dolarhoy.model.BancoDolar;
 import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.model.builder.DolarBuilder;
 import com.manoriega.dolarhoy.repository.DolarRepo;
+import com.manoriega.dolarhoy.service.DolarService;
 import com.manoriega.dolarhoy.util.HtmlDataParser;
-import com.sun.deploy.util.ArrayUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +25,27 @@ public class DolarhoyApplicationTests {
     @Autowired
     private DolarRepo dolarRepo;
 
+    @Autowired
+    private DolarService dolarService;
+
     @Test
     public void contextLoads() throws Exception {
 //        HtmlDataParser htmlDataParser = new HtmlDataParser();
 //        htmlDataParser.getCompraDolar();
-        Dolar dolar = new Dolar().builder()
-                .id(null)
-                .compra(13.0)
-                .venta(13.0)
-                .fechaGuardado("13")
-                .fechaUltimaActualizacoin("13")
-                .activo(false)
-                .build();
-        dolarRepo.save(dolar);
+//        Dolar dolar = new Dolar().builder()
+//                .id(null)
+//                .compra(13.0)
+//                .venta(13.0)
+//                .fechaGuardado("13")
+//                .fechaUltimaActualizacoin("13")
+//                .activo(false)
+//                .build();
+//        dolarRepo.save(dolar);
 //        Dolar dolar1 = dolarRepo.foo2();
 //        System.out.println(dolar1.toString());
+
+        HtmlDataParser htmlDataParser = new HtmlDataParser();
+        htmlDataParser.bancoDolar();
+        htmlDataParser.bancoEuro();
     }
 }

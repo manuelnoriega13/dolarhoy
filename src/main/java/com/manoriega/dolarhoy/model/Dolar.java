@@ -9,6 +9,19 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+
+/**
+ * hereda de {@link Object}
+ * <h1>Dolar builder</h1>
+ * map of table dolar
+ *
+ * @author manoriega
+ * @version 1.1
+ * @since 2018
+ *{@code builder()}
+ */
+
 
 @XmlRootElement
 @Entity
@@ -35,6 +48,9 @@ public class Dolar {
     @JsonIgnore
     @Column(columnDefinition = "tinyint(1) default 1")
     private Boolean activo;
+
+    @Transient
+    private List<BancoDolar> bancoDolarList;
 
     @PrePersist
     public void preSave() {
@@ -92,6 +108,14 @@ public class Dolar {
         this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
     }
 
+    public List<BancoDolar> getBancoDolarList() {
+        return bancoDolarList;
+    }
+
+    public void setBancoDolarList(List<BancoDolar> bancoDolarList) {
+        this.bancoDolarList = bancoDolarList;
+    }
+
     public Boolean getActivo() {
         return activo;
     }
@@ -100,7 +124,10 @@ public class Dolar {
         this.activo = activo;
     }
 
-
+    /**
+     *{@code builder()} necesario para hacer un builder
+     * @return la instancia de Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -138,6 +165,12 @@ public class Dolar {
             this.dolar.setFechaUltimaActualizacoin(fechaUltimaActualizacoin);
             return this;
         }
+
+        /**
+         *
+         * @param activo booleano que muestra si esa activo ese dato guardado
+         * @return devuelve la instancia actual del objeto
+         */
 
         public Builder activo(Boolean activo) {
             this.dolar.setActivo(activo);

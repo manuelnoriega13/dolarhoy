@@ -38,7 +38,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getIndex(Model model) {
+    public String getIndex(Model model) throws Exception {
         model.addAttribute("pDolarHoy", "pDolarHoy");
         model.addAttribute("dolar_last", dolarService.getLast());
         model.addAttribute("dolar_now", dolarService.now());

@@ -35,7 +35,7 @@ public class DolarController {
     }
 
     @GetMapping("now")
-    public Dolar now() {
+    public Dolar now() throws Exception {
         return dolarService.now();
     }
 

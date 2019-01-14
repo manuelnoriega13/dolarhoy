@@ -30,10 +30,10 @@ public class DolarhoyApplication extends SpringBootServletInitializer implements
     private ApplicationContext appContext;
 
     public static void main(String[] args) {
-        ApplicationContext context = new SpringApplicationBuilder(DolarhoyApplication.class).headless(false).run(args);
-        UI uiSwing = context.getBean(UI.class);
-        uiSwing.init();
-//        SpringApplication.run(DolarhoyApplication.class, args);
+//        ApplicationContext context = new SpringApplicationBuilder(DolarhoyApplication.class).headless(false).run(args);
+//        UI uiSwing = context.getBean(UI.class);
+//        uiSwing.init();
+        SpringApplication.run(DolarhoyApplication.class, args);
 //        ApplicationContext context = new AnnotationConfigApplicationContext(DolarhoyApplication.class);
 
 

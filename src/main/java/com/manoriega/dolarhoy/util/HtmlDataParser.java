@@ -1,18 +1,24 @@
 package com.manoriega.dolarhoy.util;
 
+import com.manoriega.dolarhoy.model.BancoDolar;
+import com.manoriega.dolarhoy.model.BancoEuro;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HtmlDataParser {
 
+    private String dolarCompra = "http://www.dolarhoy.com/cotizacion-dolar";
+    private String euroCompra = "http://www.dolarhoy.com/cotizacion-euro";
+
+
     public Double getCompraDolar() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
+            Document doc = Jsoup.connect(dolarCompra).get();
             Elements element = doc.getElementsByClass("col-md-6 compra");
             Element r2 = element.get(0);
             r2.getAllElements();
@@ -24,7 +30,6 @@ public class HtmlDataParser {
             Double dolar = Double.parseDouble(foo);
             System.out.println(dolar);
             return dolar;
-//            pull-righ
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
@@ -34,7 +39,7 @@ public class HtmlDataParser {
 
     public Double getVentaDolar() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
+            Document doc = Jsoup.connect(dolarCompra).get();
             Elements element = doc.getElementsByClass("col-md-6 venta");
             Element r2 = element.get(0);
             r2.getAllElements();
@@ -55,7 +60,7 @@ public class HtmlDataParser {
 
     public String getUltimaActualizacionDolar() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-dolar").get();
+            Document doc = Jsoup.connect(dolarCompra).get();
             Elements element = doc.getElementsByClass("update");
             Element r2 = element.get(0);
             String[] fechaHora = r2.text().split(" ");
@@ -71,7 +76,7 @@ public class HtmlDataParser {
 
     public Double getCompraEuro() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
+            Document doc = Jsoup.connect(euroCompra).get();
             Elements element = doc.getElementsByClass("col-md-6 compra");
             Element r2 = element.get(0);
             r2.getAllElements();
@@ -93,7 +98,7 @@ public class HtmlDataParser {
 
     public Double getVentaEuro() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
+            Document doc = Jsoup.connect(euroCompra).get();
             Elements element = doc.getElementsByClass("col-md-6 venta");
             Element r2 = element.get(0);
             r2.getAllElements();
@@ -114,7 +119,7 @@ public class HtmlDataParser {
 
     public String getUltimaActualizacionEuro() {
         try {
-            Document doc = Jsoup.connect("http://www.dolarhoy.com/cotizacion-euro").get();
+            Document doc = Jsoup.connect(euroCompra).get();
             Elements element = doc.getElementsByClass("update");
             Element r2 = element.get(0);
             String[] fechaHora = r2.text().split(" ");
@@ -127,4 +132,46 @@ public class HtmlDataParser {
         }
         return null;
     }
-}
+
+    public List<BancoDolar> bancoDolar() throws Exception {
+        Document doc = Jsoup.connect(dolarCompra).get();
+        Elements elements = doc.getElementsByClass("table-responsive");
+        List<Node> nodeList = elements.get(0).childNodes().get(1).childNodes().get(3).childNodes();
+        List<BancoDolar> bancoDolarList = new ArrayList<>();
+        for (int i = 0; i < nodeList.size(); i++) {
+            if (i % 2 == 1) {
+                BancoDolar bancoDolar = new BancoDolar();
+                String banco = ((Element) nodeList.get(i)).getElementsByTag("a").text();
+                String[] valor = ((Element) nodeList.get(i)).getElementsByClass("number").text().split(" ");
+                String[] c = valor[1].split(",");
+                String[] v = valor[3].split(",");
+                bancoDolar.setNombre(banco);
+                bancoDolar.setCompra(Double.parseDouble(c[0] + "." + c[1]));
+                bancoDolar.setVenta(Double.parseDouble(v[0] + "." + v[1]));
+                bancoDolarList.add(bancoDolar);
+            }
+        }
+        return bancoDolarList;
+    }
+
+    public List<BancoEuro> bancoEuro() throws Exception{
+        Document doc = Jsoup.connect(euroCompra).get();
+        Elements elements = doc.getElementsByClass("table-responsive");
+        List<Node> nodeList = elements.get(0).childNodes().get(1).childNodes().get(3).childNodes();
+        List<BancoEuro> bancoEuroList = new ArrayList<>();
+        for (int i = 0; i < nodeList.size(); i++) {
+            if (i % 2 == 1) {
+                BancoEuro bancoEuro = new BancoEuro();
+                String banco = ((Element) nodeList.get(i)).getElementsByTag("a").text();
+                String[] valor = ((Element) nodeList.get(i)).getElementsByClass("number").text().split(" ");
+                String[] c = valor[1].split(",");
+                String[] v = valor[3].split(",");
+                bancoEuro.setNombre(banco);
+                bancoEuro.setCompra(Double.parseDouble(c[0] + "." + c[1]));
+                bancoEuro.setVenta(Double.parseDouble(v[0] + "." + v[1]));
+                bancoEuroList.add(bancoEuro);
+            }
+        }
+        return bancoEuroList;
+    }
+    }

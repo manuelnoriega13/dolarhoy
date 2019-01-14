@@ -22,13 +22,14 @@ public class DolarService {
     private DolarRepo dolarRepo;
 
     @Scheduled(cron = "${scheduled.run.task}")
-    public void getDolarData() {
+    public void getDolarData() throws Exception {
         HtmlDataParser htmlDataParser = new HtmlDataParser();
         Dolar dolar = new Dolar();
         dolar.setVenta(htmlDataParser.getVentaDolar());
         dolar.setCompra(htmlDataParser.getCompraDolar());
         dolar.setFechaGuardado(new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date()));
         dolar.setFechaUltimaActualizacoin(htmlDataParser.getUltimaActualizacionDolar());
+        dolar.setBancoDolarList(htmlDataParser.bancoDolar());
         dolar.setActivo(true);
         dolarRepo.save(dolar);
     }
@@ -45,13 +46,14 @@ public class DolarService {
         return dolarRepo.findById(dolarRepo.count());
     }
 
-    public Dolar now() {
+    public Dolar now() throws Exception {
         HtmlDataParser dolarHtml = new HtmlDataParser();
         Dolar dolar = new Dolar();
         dolar.setCompra(dolarHtml.getCompraDolar());
         dolar.setVenta(dolarHtml.getVentaDolar());
         dolar.setFechaUltimaActualizacoin(dolarHtml.getUltimaActualizacionDolar());
         dolar.setFechaGuardado(null);
+        dolar.setBancoDolarList(dolarHtml.bancoDolar());
         return dolar;
     }
 
