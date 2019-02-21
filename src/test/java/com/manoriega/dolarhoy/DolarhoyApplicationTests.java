@@ -28,6 +28,9 @@ public class DolarhoyApplicationTests {
     @Autowired
     private DolarService dolarService;
 
+    @Autowired
+    private HtmlDataParser htmlDataParser;
+
     @Test
     public void contextLoads() throws Exception {
 //        HtmlDataParser htmlDataParser = new HtmlDataParser();
@@ -44,7 +47,8 @@ public class DolarhoyApplicationTests {
 //        Dolar dolar1 = dolarRepo.foo2();
 //        System.out.println(dolar1.toString());
 
-        HtmlDataParser htmlDataParser = new HtmlDataParser();
+
+        htmlDataParser.getCompraDolar();
         htmlDataParser.bancoDolar();
         htmlDataParser.bancoEuro();
     }

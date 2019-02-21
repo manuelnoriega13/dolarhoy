@@ -1,10 +1,12 @@
 package com.manoriega.dolarhoy.model;
 
+import java.math.BigDecimal;
+
 public class BancoDolar {
 
     private String nombre;
-    private Double compra;
-    private Double venta;
+    private BigDecimal compra;
+    private BigDecimal venta;
 
     public String getNombre() {
         return nombre;
@@ -14,19 +16,19 @@ public class BancoDolar {
         this.nombre = nombre;
     }
 
-    public Double getCompra() {
+    public BigDecimal getCompra() {
         return compra;
     }
 
-    public void setCompra(Double compra) {
+    public void setCompra(BigDecimal compra) {
         this.compra = compra;
     }
 
-    public Double getVenta() {
+    public BigDecimal getVenta() {
         return venta;
     }
 
-    public void setVenta(Double venta) {
+    public void setVenta(BigDecimal venta) {
         this.venta = venta;
     }
 }

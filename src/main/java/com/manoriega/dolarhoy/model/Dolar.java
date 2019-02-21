@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 
-@XmlRootElement
+//@XmlRootElement
 @Entity
 @Table(name = "dolar")
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -7,18 +7,26 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class HtmlDataParser {
 
+    @Autowired
+    private Environment environment;
     private String dolarCompra = "http://www.dolarhoy.com/cotizacion-dolar";
     private String euroCompra = "http://www.dolarhoy.com/cotizacion-euro";
 
 
     public Double getCompraDolar() {
         try {
-            Document doc = Jsoup.connect(dolarCompra).get();
+            Document doc = Jsoup.connect(environment.getProperty("dolar.url.compra")).get();
             Elements element = doc.getElementsByClass("col-md-6 compra");
             Element r2 = element.get(0);
             r2.getAllElements();
@@ -146,8 +154,13 @@ public class HtmlDataParser {
                 String[] c = valor[1].split(",");
                 String[] v = valor[3].split(",");
                 bancoDolar.setNombre(banco);
-                bancoDolar.setCompra(Double.parseDouble(c[0] + "." + c[1]));
-                bancoDolar.setVenta(Double.parseDouble(v[0] + "." + v[1]));
+                String bancoCompra = (c[0] + "." + c[1]);
+                String bancoVenta = (v[0] + "." + v[1]);
+                BigDecimal bigDecimalCompra = new BigDecimal(bancoCompra);
+
+                BigDecimal bigDecimalVenta = new BigDecimal(bancoVenta);
+                bancoDolar.setCompra(new BigDecimal(bancoCompra));
+                bancoDolar.setVenta(new BigDecimal(bancoVenta));
                 bancoDolarList.add(bancoDolar);
             }
         }

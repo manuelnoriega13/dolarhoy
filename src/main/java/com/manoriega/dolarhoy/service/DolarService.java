@@ -21,9 +21,12 @@ public class DolarService {
     @Autowired
     private DolarRepo dolarRepo;
 
+    @Autowired
+    private HtmlDataParser htmlDataParser;
+
     @Scheduled(cron = "${scheduled.run.task}")
     public void getDolarData() throws Exception {
-        HtmlDataParser htmlDataParser = new HtmlDataParser();
+//        HtmlDataParser htmlDataParser = new HtmlDataParser();
         Dolar dolar = new Dolar();
         dolar.setVenta(htmlDataParser.getVentaDolar());
         dolar.setCompra(htmlDataParser.getCompraDolar());
@@ -85,5 +88,9 @@ public class DolarService {
         Optional<Dolar> dolar = dolarRepo.findById(idDolar);
         dolar.get().setActivo(false);
         dolarRepo.save(dolar.get());
+    }
+
+    public String text(){
+        return "text";
     }
 }
