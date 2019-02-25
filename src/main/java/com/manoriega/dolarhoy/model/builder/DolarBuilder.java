@@ -2,6 +2,8 @@ package com.manoriega.dolarhoy.model.builder;
 
 import com.manoriega.dolarhoy.model.Dolar;
 
+import java.math.BigDecimal;
+
 
 public class DolarBuilder {
 
@@ -16,12 +18,12 @@ public class DolarBuilder {
         return this;
     }
 
-    public DolarBuilder compra(Double compra){
+    public DolarBuilder compra(BigDecimal compra){
         this.dolar.setCompra(compra);
         return this;
     }
 
-    public DolarBuilder venta(Double venta){
+    public DolarBuilder venta(BigDecimal venta){
         this.dolar.setVenta(venta);
         return this;
     }

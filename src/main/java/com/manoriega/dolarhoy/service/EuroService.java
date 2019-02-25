@@ -1,9 +1,10 @@
 package com.manoriega.dolarhoy.service;
 
 import com.manoriega.dolarhoy.model.Euro;
-import com.manoriega.dolarhoy.repository.EuroRepo;
+import com.manoriega.dolarhoy.dao.EuroDao;
 import com.manoriega.dolarhoy.util.HtmlDataParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,58 +18,61 @@ import java.util.Optional;
 public class EuroService {
 
     @Autowired
-    private EuroRepo euroRepo;
+    private EuroDao euroDao;
+
+    @Value("${euro.url}")
+    private String euroUrl;
 
     @Scheduled(cron = "${scheduled.run.task}")
     public void getInfo(){
         HtmlDataParser htmlDataParser = new HtmlDataParser();
         Euro euro = new Euro();
-        euro.setCompra(htmlDataParser.getCompraEuro());
-        euro.setVenta(htmlDataParser.getVentaEuro());
+        euro.setCompra(htmlDataParser.getCompra());
+        euro.setVenta(htmlDataParser.getVenta());
         euro.setFechaGuardado(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        euro.setFechaUltimaActualizacoin(htmlDataParser.getUltimaActualizacionEuro());
+        euro.setFechaUltimaActualizacoin(htmlDataParser.getUltimaActualizacion());
         euro.setActivo(true);
-        euroRepo.save(euro);
+        euroDao.save(euro);
     }
 
     public List<Euro> all(){
-        return euroRepo.findAll(new Sort(Sort.Direction.DESC));
+        return euroDao.findAll(new Sort(Sort.Direction.DESC));
     }
 
     public List<Euro> allActive(){
-        return euroRepo.allActive();
+        return euroDao.allActive();
     }
 
     public Optional<Euro> getLast(){
-        return euroRepo.findById(euroRepo.count());
+        return euroDao.findById(euroDao.count());
     }
 
     public Euro now(){
         HtmlDataParser euroHtml = new HtmlDataParser();
         Euro euro = new Euro();
-        euro.setCompra(euroHtml.getCompraEuro());
-        euro.setVenta(euroHtml.getVentaEuro());
-        euro.setFechaUltimaActualizacoin(euroHtml.getUltimaActualizacionEuro());
+        euro.setCompra(euroHtml.getCompra());
+        euro.setVenta(euroHtml.getVenta());
+        euro.setFechaUltimaActualizacoin(euroHtml.getUltimaActualizacion());
         euro.setFechaGuardado(null);
         return euro;
     }
 
     public Optional<Euro> getById(Long idEuro){
-        return euroRepo.findById(idEuro);
+        return euroDao.findById(idEuro);
     }
 
     public void deleteById(Long idEuro){
-        euroRepo.deleteById(idEuro);
+        euroDao.deleteById(idEuro);
     }
 
     public void update(){
 
-        euroRepo.save(null);
+        euroDao.save(null);
     }
 
     public void updateToActive(Long idEuro){
-        Optional<Euro> euro = euroRepo.findById(idEuro);
+        Optional<Euro> euro = euroDao.findById(idEuro);
         euro.get().setActivo(true);
-        euroRepo.save(euro.get());
+        euroDao.save(euro.get());
     }
 }

@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "euro")
@@ -13,8 +14,8 @@ public class Euro {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    private Double compra;
-    private Double venta;
+    private BigDecimal compra;
+    private BigDecimal venta;
     private String fechaGuardado;
     private String fechaUltimaActualizacoin;
     private Boolean activo;
@@ -27,19 +28,19 @@ public class Euro {
         this.id = id;
     }
 
-    public Double getCompra() {
+    public BigDecimal getCompra() {
         return compra;
     }
 
-    public void setCompra(Double compra) {
+    public void setCompra(BigDecimal compra) {
         this.compra = compra;
     }
 
-    public Double getVenta() {
+    public BigDecimal getVenta() {
         return venta;
     }
 
-    public void setVenta(Double venta) {
+    public void setVenta(BigDecimal venta) {
         this.venta = venta;
     }
 

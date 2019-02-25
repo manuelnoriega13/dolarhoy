@@ -10,12 +10,12 @@ public class HtmlParserTest {
 
     @Before
     public void before(){
-         this.htmlDataParser = new HtmlDataParser();
+         this.htmlDataParser = new HtmlDataParser(HtmlDataParser.DOLAR);
     }
 
     @Test
     public void testHtmlParserDolar(){
-        this.htmlDataParser.getCompraDolar();
+        this.htmlDataParser.getCompra();
 
     }
 }

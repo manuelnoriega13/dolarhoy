@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -34,10 +35,10 @@ public class Dolar {
     protected Long id;
 
     @NotNull
-    private Double compra;
+    private BigDecimal compra;
 
     @NotNull
-    private Double venta;
+    private BigDecimal venta;
 
     //    @Temporal(TemporalType.DATE)
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -50,7 +51,7 @@ public class Dolar {
     private Boolean activo;
 
     @Transient
-    private List<BancoDolar> bancoDolarList;
+    private List<Banco> bancoList;
 
     @PrePersist
     public void preSave() {
@@ -76,19 +77,19 @@ public class Dolar {
         this.id = id;
     }
 
-    public Double getCompra() {
+    public BigDecimal getCompra() {
         return compra;
     }
 
-    public void setCompra(Double compra) {
+    public void setCompra(BigDecimal compra) {
         this.compra = compra;
     }
 
-    public Double getVenta() {
+    public BigDecimal getVenta() {
         return venta;
     }
 
-    public void setVenta(Double venta) {
+    public void setVenta(BigDecimal venta) {
         this.venta = venta;
     }
 
@@ -108,12 +109,12 @@ public class Dolar {
         this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
     }
 
-    public List<BancoDolar> getBancoDolarList() {
-        return bancoDolarList;
+    public List<Banco> getBancoList() {
+        return bancoList;
     }
 
-    public void setBancoDolarList(List<BancoDolar> bancoDolarList) {
-        this.bancoDolarList = bancoDolarList;
+    public void setBancoList(List<Banco> bancoList) {
+        this.bancoList = bancoList;
     }
 
     public Boolean getActivo() {
@@ -146,12 +147,12 @@ public class Dolar {
             return this;
         }
 
-        public Builder compra(Double compra) {
+        public Builder compra(BigDecimal compra) {
             this.dolar.setCompra(compra);
             return this;
         }
 
-        public Builder venta(Double venta) {
+        public Builder venta(BigDecimal venta) {
             this.dolar.setVenta(venta);
             return this;
         }

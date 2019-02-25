@@ -1,4 +1,4 @@
-package com.manoriega.dolarhoy.repository;
+package com.manoriega.dolarhoy.dao;
 
 import com.manoriega.dolarhoy.model.Dolar;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,17 +10,10 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
-public interface DolarRepo extends JpaRepository<Dolar, Long>, QueryByExampleExecutor<Dolar> {
+public interface DolarDao extends JpaRepository<Dolar, Long>, QueryByExampleExecutor<Dolar> {
 
     @Query("select d from Dolar d where d.activo = true order by d.id desc")
     List<Dolar> allActive();
 
-    @Query("select d from Dolar d where d.activo = true order by d.id desc")
-    List<Dolar> allActive(Pageable pageable);
-
-    @Query("select count(*) from Dolar d where d.activo=true")
-    List<Dolar> foo();
-
-    @Query(value = "select * from dolar where dolar.id =1", nativeQuery = true)
-    Dolar foo2();
+    List<Dolar> findAllByActivoEqualsOrderById(Boolean activo);
 }

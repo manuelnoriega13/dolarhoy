@@ -1,12 +1,10 @@
 package com.manoriega.dolarhoy.controller;
 
 import com.manoriega.dolarhoy.model.Dolar;
-import com.manoriega.dolarhoy.repository.DolarRepo;
+import com.manoriega.dolarhoy.dao.DolarDao;
 import com.manoriega.dolarhoy.service.DolarService;
 import com.manoriega.dolarhoy.service.EuroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +23,7 @@ public class MainController {
     private DolarService dolarService;
 
     @Autowired
-    private DolarRepo dolarRepo;
+    private DolarDao dolarDao;
 
     @Autowired
     private EuroService euroService;
@@ -60,7 +58,7 @@ public class MainController {
             return "add_dolar";
         }
         dolar.setActivo(true);
-        dolarRepo.save(dolar);
+        dolarDao.save(dolar);
         status.setComplete();
         flash.addFlashAttribute("success","exito");
         return "redirect:/dolar";
