@@ -1,5 +1,6 @@
 package com.manoriega.dolarhoy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +11,11 @@ import java.math.BigDecimal;
 @Table(name = "banco_euro")
 @Getter
 @Setter
-public class EuroBanco {
+public class BancoEuro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column

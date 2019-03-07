@@ -1,15 +1,16 @@
 package com.manoriega.dolarhoy.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.manoriega.dolarhoy.model.builder.DolarBuilder;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * @author manoriega
  * @version 1.1
  * @since 2018
- *{@code builder()}
+ * {@code builder()}
  */
 
 
@@ -32,7 +33,7 @@ public class Dolar {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @NotNull
     private BigDecimal compra;
@@ -40,34 +41,23 @@ public class Dolar {
     @NotNull
     private BigDecimal venta;
 
-    //    @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty
-    private String fechaGuardado;
-    private String fechaUltimaActualizacoin;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd-MM-YY HH:mm")
+    private Date fechaGuardado;
+    @JsonProperty("ultimaActualizacion")
+    @JsonFormat(pattern = "dd-MM-YY HH:mm")
+    private Date fechaUltimaActualizacion;
 
     @JsonIgnore
     @Column(columnDefinition = "tinyint(1) default 1")
     private Boolean activo;
 
-    @Transient
-    private List<Banco> bancoList;
-
-    @PrePersist
-    public void preSave() {
-
-    }
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "fk_dolar", referencedColumnName = "id")
+    private List<BancoDolar> bancoDolarList;
 
     public Dolar() {
     }
-
-//    public Dolar(Double compra, Double venta, String fechaGuardado, String fechaUltimaActualizacoin, Boolean activo) {
-//        this.compra = compra;
-//        this.venta = venta;
-//        this.fechaGuardado = fechaGuardado;
-//        this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
-//        this.activo = activo;
-//    }
 
     public Long getId() {
         return id;
@@ -93,28 +83,20 @@ public class Dolar {
         this.venta = venta;
     }
 
-    public String getFechaGuardado() {
+    public Date getFechaGuardado() {
         return fechaGuardado;
     }
 
-    public void setFechaGuardado(String fechaGuardado) {
+    public void setFechaGuardado(Date fechaGuardado) {
         this.fechaGuardado = fechaGuardado;
     }
 
-    public String getFechaUltimaActualizacoin() {
-        return fechaUltimaActualizacoin;
+    public Date getFechaUltimaActualizacion() {
+        return fechaUltimaActualizacion;
     }
 
-    public void setFechaUltimaActualizacoin(String fechaUltimaActualizacoin) {
-        this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
-    }
-
-    public List<Banco> getBancoList() {
-        return bancoList;
-    }
-
-    public void setBancoList(List<Banco> bancoList) {
-        this.bancoList = bancoList;
+    public void setFechaUltimaActualizacion(Date fechaUltimaActualizacion) {
+        this.fechaUltimaActualizacion = fechaUltimaActualizacion;
     }
 
     public Boolean getActivo() {
@@ -125,8 +107,17 @@ public class Dolar {
         this.activo = activo;
     }
 
+    public List<BancoDolar> getBancoDolarList() {
+        return bancoDolarList;
+    }
+
+    public void setBancoDolarList(List<BancoDolar> bancoDolarList) {
+        this.bancoDolarList = bancoDolarList;
+    }
+
     /**
-     *{@code builder()} necesario para hacer un builder
+     * {@code builder()} necesario para hacer un builder
+     *
      * @return la instancia de Builder
      */
     public static Builder builder() {
@@ -157,18 +148,17 @@ public class Dolar {
             return this;
         }
 
-        public Builder fechaGuardado(String fechaGuardado) {
+        public Builder fechaGuardado(Date fechaGuardado) {
             this.dolar.setFechaGuardado(fechaGuardado);
             return this;
         }
 
-        public Builder fechaUltimaActualizacoin(String fechaUltimaActualizacoin) {
-            this.dolar.setFechaUltimaActualizacoin(fechaUltimaActualizacoin);
+        public Builder fechaUltimaActualizacoin(Date fechaUltimaActualizacoin) {
+            this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacoin);
             return this;
         }
 
         /**
-         *
          * @param activo booleano que muestra si esa activo ese dato guardado
          * @return devuelve la instancia actual del objeto
          */

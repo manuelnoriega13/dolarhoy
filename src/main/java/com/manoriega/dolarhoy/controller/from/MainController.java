@@ -1,4 +1,4 @@
-package com.manoriega.dolarhoy.controller;
+package com.manoriega.dolarhoy.controller.from;
 
 import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.dao.DolarDao;
@@ -88,7 +88,7 @@ public class MainController {
     public String deleteDolar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 
         if (id > 0) {
-            dolarService.updateToUnActive(id);
+            dolarService.deleteById(id);
             flash.addFlashAttribute("success","exito");
         }
         return "redirect:/dolar";

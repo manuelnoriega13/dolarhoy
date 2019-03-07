@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.model.builder;
 import com.manoriega.dolarhoy.model.Dolar;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 public class DolarBuilder {
@@ -28,13 +29,13 @@ public class DolarBuilder {
         return this;
     }
 
-    public DolarBuilder fechaGuardado(String fechaGuardado){
+    public DolarBuilder fechaGuardado(Date fechaGuardado){
         this.dolar.setFechaGuardado(fechaGuardado);
         return this;
     }
 
-    public DolarBuilder fechaUltimaActualizacoin(String fechaUltimaActualizacoin){
-        this.dolar.setFechaUltimaActualizacoin(fechaUltimaActualizacoin);
+    public DolarBuilder fechaUltimaActualizacoin(Date fechaUltimaActualizacoin){
+        this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacoin);
         return this;
     }
 

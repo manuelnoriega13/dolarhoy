@@ -1,8 +1,11 @@
 package com.manoriega.dolarhoy.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 public class Banco {
+
 
     private String nombre;
     private BigDecimal compra;

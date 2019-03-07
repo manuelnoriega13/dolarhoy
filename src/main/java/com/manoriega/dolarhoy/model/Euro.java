@@ -1,9 +1,12 @@
 package com.manoriega.dolarhoy.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "euro")
@@ -16,9 +19,16 @@ public class Euro {
     protected Long id;
     private BigDecimal compra;
     private BigDecimal venta;
-    private String fechaGuardado;
-    private String fechaUltimaActualizacoin;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd-MM-YY HH:mm")
+    private Date fechaGuardado;
+    private Date fechaUltimaActualizacion;
     private Boolean activo;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "fk_euro", referencedColumnName = "id")
+    private List<BancoEuro> bancoEuroList;
 
     public Long getId() {
         return id;
@@ -44,20 +54,20 @@ public class Euro {
         this.venta = venta;
     }
 
-    public String getFechaGuardado() {
+    public Date getFechaGuardado() {
         return fechaGuardado;
     }
 
-    public void setFechaGuardado(String fechaGuardado) {
+    public void setFechaGuardado(Date fechaGuardado) {
         this.fechaGuardado = fechaGuardado;
     }
 
-    public String getFechaUltimaActualizacoin() {
-        return fechaUltimaActualizacoin;
+    public Date getFechaUltimaActualizacion() {
+        return fechaUltimaActualizacion;
     }
 
-    public void setFechaUltimaActualizacoin(String fechaUltimaActualizacoin) {
-        this.fechaUltimaActualizacoin = fechaUltimaActualizacoin;
+    public void setFechaUltimaActualizacion(Date fechaUltimaActualizacion) {
+        this.fechaUltimaActualizacion = fechaUltimaActualizacion;
     }
 
     public Boolean getActivo() {
@@ -66,5 +76,13 @@ public class Euro {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public List<BancoEuro> getBancoEuroList() {
+        return bancoEuroList;
+    }
+
+    public void setBancoEuroList(List<BancoEuro> bancoEuroList) {
+        this.bancoEuroList = bancoEuroList;
     }
 }

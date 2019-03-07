@@ -1,17 +1,13 @@
 package com.manoriega.dolarhoy;
 
 import com.manoriega.dolarhoy.dao.DolarDao;
-import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.service.DolarService;
-import com.manoriega.dolarhoy.util.HtmlDataParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +24,6 @@ public class DolarhoyApplicationTests {
 
     @Value("${euro.url}")
     private String euro;
-
 
     @Test
     public void contextLoads() throws Exception {
@@ -48,13 +43,23 @@ public class DolarhoyApplicationTests {
 
 
 //        htmlDataParser.getCompra();
-//        htmlDataParser.getBancoInfo();
+//        htmlDataParser.getBancoDolarInfo();
 //        htmlDataParser.bancoEuro();
 
-        HtmlDataParser dolarParser = new HtmlDataParser(dolar);
-        HtmlDataParser euroParser = new HtmlDataParser(euro);
-
-        dolarParser.getCompra();
+//        HtmlDataParser dolarParser = new HtmlDataParser(dolar);
+//        HtmlDataParser euroParser = new HtmlDataParser(euro);
+//
+//        dolarParser.getCompra();
 //        List<Dolar> dolarList = dolarDao.findAllByActivoEqualsOrderById(true);
+//        Pageable pageable = PageRequest.of(0, 20);
+//        System.out.println(dolarService.text());
+//        HtmlDataParser htmlDataParser = new HtmlDataParser(dolar);
+//        BancoDolar bancoDolar = new BancoDolar();
+//        bancoDolar.setNombre(htmlDataParser.getBancoDolarInfo().get(4).getNombre());
+//        bancoDolar.setCompra(htmlDataParser.getBancoDolarInfo().get(4).getCompra());
+//        bancoDolar.setVenta(htmlDataParser.getBancoDolarInfo().get(4).getVenta());
+//        bancoDolarDao.save(bancoDolar);
+
+
     }
 }

@@ -1,6 +1,7 @@
 package com.manoriega.dolarhoy.util;
 
-import com.manoriega.dolarhoy.model.Banco;
+import com.manoriega.dolarhoy.model.BancoDolar;
+import com.manoriega.dolarhoy.model.BancoEuro;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,7 +9,10 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HtmlDataParser {
@@ -66,7 +70,7 @@ public class HtmlDataParser {
         return null;
     }
 
-    public String getUltimaActualizacion() {
+    public Date getUltimaActualizacion() {
         try {
             Document doc = Jsoup.connect(uri).get();
             Elements element = doc.getElementsByClass("update");
@@ -75,21 +79,26 @@ public class HtmlDataParser {
             String[] fecha = fechaHora[0].split("/");
             String finalFecha = fecha[0] + "-" + fecha[1] + "-" + fecha[2];
             String end = finalFecha + " " + fechaHora[1];
-            return end;
+
+//            04-03-19 10:58
+            DateFormat formatEnd = new SimpleDateFormat("dd-MM-yy HH:mm");
+            Date date = formatEnd.parse(end);
+
+            return date;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public List<Banco> getBancoInfo() throws Exception {
+    public List<BancoDolar> getBancoDolarInfo() throws Exception {
         Document doc = Jsoup.connect(uri).get();
         Elements elements = doc.getElementsByClass("table-responsive");
         List<Node> nodeList = elements.get(0).childNodes().get(1).childNodes().get(3).childNodes();
-        List<Banco> bancoList = new ArrayList<>();
+        List<BancoDolar> bancoDolarList = new ArrayList<>();
         for (int i = 0; i < nodeList.size(); i++) {
             if (i % 2 == 1) {
-                Banco bancoDolar = new Banco();
+                BancoDolar bancoDolar = new BancoDolar();
                 String banco = ((Element) nodeList.get(i)).getElementsByTag("a").text();
                 String[] valor = ((Element) nodeList.get(i)).getElementsByClass("number").text().split(" ");
                 String[] c = valor[1].split(",");
@@ -97,13 +106,39 @@ public class HtmlDataParser {
                 bancoDolar.setNombre(banco);
                 String bancoCompra = (c[0] + "." + c[1]);
                 String bancoVenta = (v[0] + "." + v[1]);
-//                BigDecimal bigDecimalCompra = new BigDecimal(bancoCompra);
-//                BigDecimal bigDecimalVenta = new BigDecimal(bancoVenta);
-                bancoDolar.setCompra(new BigDecimal(bancoCompra));
-                bancoDolar.setVenta(new BigDecimal(bancoVenta));
-                bancoList.add(bancoDolar);
+                BigDecimal bigDecimalCompra = new BigDecimal(bancoCompra);
+                BigDecimal bigDecimalVenta = new BigDecimal(bancoVenta);
+                bancoDolar.setCompra(bigDecimalCompra);
+                bancoDolar.setVenta(bigDecimalVenta);
+                bancoDolarList.add(bancoDolar);
             }
         }
-        return bancoList;
+        return bancoDolarList;
+    }
+
+    public List<BancoEuro> getBancoEuroInfo() throws Exception {
+
+        Document doc = Jsoup.connect(uri).get();
+        Elements elements = doc.getElementsByClass("table-responsive");
+        List<Node> nodeList = elements.get(0).childNodes().get(1).childNodes().get(3).childNodes();
+        List<BancoEuro> bancoEuroList = new ArrayList<>();
+        for (int i = 0; i < nodeList.size(); i++) {
+            if (i % 2 == 1) {
+                BancoEuro bancoEuro = new BancoEuro();
+                String banco = ((Element) nodeList.get(i)).getElementsByTag("a").text();
+                String[] valor = ((Element) nodeList.get(i)).getElementsByClass("number").text().split(" ");
+                String[] c = valor[1].split(",");
+                String[] v = valor[3].split(",");
+                bancoEuro.setNombre(banco);
+                String bancoCompra = (c[0] + "." + c[1]);
+                String bancoVenta = (v[0] + "." + v[1]);
+                BigDecimal bigDecimalCompra = new BigDecimal(bancoCompra);
+                BigDecimal bigDecimalVenta = new BigDecimal(bancoVenta);
+                bancoEuro.setCompra(bigDecimalCompra);
+                bancoEuro.setVenta(bigDecimalVenta);
+                bancoEuroList.add(bancoEuro);
+            }
+        }
+        return bancoEuroList;
     }
 }
