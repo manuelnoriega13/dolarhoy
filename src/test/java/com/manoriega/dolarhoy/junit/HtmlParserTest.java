@@ -5,6 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +34,5 @@ public class HtmlParserTest {
 //        Date ultima = this.htmlDataParser.getUltimaActualizacion();
 //        System.out.println(ultima.toString());
 //        Assert.assertNotNull(this.htmlDataParser);
-
     }
 }
