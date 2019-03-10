@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ import java.util.List;
 @Entity
 @Table(name = "dolar")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ToString
 public class Dolar {
     @Id
     @Column
@@ -55,6 +57,7 @@ public class Dolar {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "fk_dolar", referencedColumnName = "id")
     private List<BancoDolar> bancoDolarList;
+
 
     public Dolar() {
     }

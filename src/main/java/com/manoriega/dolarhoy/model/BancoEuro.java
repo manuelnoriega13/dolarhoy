@@ -3,6 +3,7 @@ package com.manoriega.dolarhoy.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Table(name = "banco_euro")
 @Getter
 @Setter
+@ToString
 public class BancoEuro {
 
     @Id

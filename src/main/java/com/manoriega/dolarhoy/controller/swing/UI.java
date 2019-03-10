@@ -1,6 +1,9 @@
 package com.manoriega.dolarhoy.controller.swing;
 
+import com.manoriega.dolarhoy.service.DolarService;
+import com.manoriega.dolarhoy.service.EuroService;
 import com.sun.org.apache.xml.internal.security.Init;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -20,6 +23,13 @@ import java.net.URL;
 
 @Component
 public class UI {
+
+    @Autowired
+    private DolarService dolarService;
+
+    @Autowired
+    private EuroService euroService;
+
     public void init() {
         JFrame frame = new JFrame("HelloWorldSwing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,11 +46,11 @@ public class UI {
 
 
     public void trayIcon() throws AWTException, InterruptedException, IOException {
-        TrayIcon icono = new TrayIcon(getImagen(), "Jonathan Melgoza Blog", crearMenu());
+        TrayIcon icono = new TrayIcon(getImagen(), "Jonathan Melgoza Blog", this.crearMenu());
         icono.setImageAutoSize(true);
         SystemTray.getSystemTray().add(icono);
         Thread.sleep(5000);
-        icono.displayMessage("Atencion", "Porfavor Clickea Aqui", TrayIcon.MessageType.INFO);
+        icono.displayMessage("Atencion", "Servidor corriendo", TrayIcon.MessageType.INFO);
     }
 
     public Image getImagen() throws IOException {
@@ -49,20 +59,19 @@ public class UI {
         return img;
     }
 
-    public static PopupMenu crearMenu() {
+    public PopupMenu crearMenu() {
         PopupMenu menu = new PopupMenu();
         MenuItem salir = new MenuItem("Salir");
-        MenuItem prueba = new MenuItem("Prueba");
-
+        MenuItem dolar = new MenuItem("Dolar");
+        MenuItem euro = new MenuItem("Euro");
 
         salir.addActionListener(e -> System.exit(0));
-        prueba.addActionListener(e -> {
-            System.out.println("Prueba");
-        });
+        dolar.addActionListener(e -> System.out.println(dolarService.ultimo()));
+        euro.addActionListener(e -> System.out.println(euroService.ultimo()));
 
         menu.add(salir);
-        menu.add(prueba);
-
+        menu.add(dolar);
+        menu.add(euro);
         return menu;
     }
 }

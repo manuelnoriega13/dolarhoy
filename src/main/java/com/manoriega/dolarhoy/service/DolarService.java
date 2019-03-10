@@ -4,6 +4,7 @@ import com.manoriega.dolarhoy.dto.DolarDTO;
 import com.manoriega.dolarhoy.model.Dolar;
 import com.manoriega.dolarhoy.dao.DolarDao;
 import com.manoriega.dolarhoy.util.HtmlDataParser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -14,11 +15,12 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 public class DolarService {
@@ -41,6 +43,7 @@ public class DolarService {
         dolar.setBancoDolarList(htmlDataParser.getBancoDolarInfo());
         dolar.setActivo(true);
         dolarDao.save(dolar);
+        log.info("getDolarData() " + dolar);
     }
 
     public List<Dolar> all() {
@@ -97,22 +100,22 @@ public class DolarService {
     }
 
     public List<DolarDTO> getList() {
-        List<Dolar> dolarList = this.allActive();
-        List<DolarDTO> dolarDTOList = new ArrayList<>();
         DateFormat df2 = new SimpleDateFormat("dd-MM-yy HH:mm");
-
-        for (Dolar dolar : dolarList) {
-            DolarDTO dolarDTO = new DolarDTO();
-            dolarDTO.setId(dolar.getId());
-            dolarDTO.setCompra(dolar.getCompra());
-            dolarDTO.setVenta(dolar.getVenta());
-            String d1 = df2.format(dolar.getFechaUltimaActualizacion());
-            dolarDTO.setFechaUltimaActualizacion(d1);
-            String d2 = df2.format(dolar.getFechaGuardado());
-            dolarDTO.setFechaGuardado(d2);
-            dolarDTO.setBancoDolarList(dolar.getBancoDolarList());
-            dolarDTOList.add(dolarDTO);
-        }
+        List<Dolar> dolarList = this.allActive();
+        List<DolarDTO> dolarDTOList = dolarList
+                .stream()
+                .map(dolar -> {
+                    DolarDTO dolarDTO = new DolarDTO();
+                    dolarDTO.setId(dolar.getId());
+                    dolarDTO.setCompra(dolar.getCompra());
+                    dolarDTO.setVenta(dolar.getVenta());
+                    String d1 = df2.format(dolar.getFechaUltimaActualizacion());
+                    dolarDTO.setFechaUltimaActualizacion(d1);
+                    String d2 = df2.format(dolar.getFechaGuardado());
+                    dolarDTO.setFechaGuardado(d2);
+                    dolarDTO.setBancoDolarList(dolar.getBancoDolarList());
+                    return dolarDTO;
+                }).collect(Collectors.toList());
         return dolarDTOList;
     }
 

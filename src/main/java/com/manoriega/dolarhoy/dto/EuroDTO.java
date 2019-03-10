@@ -6,12 +6,14 @@ import com.manoriega.dolarhoy.model.BancoDolar;
 import com.manoriega.dolarhoy.model.BancoEuro;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class EuroDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -6,6 +6,7 @@ import com.manoriega.dolarhoy.model.Euro;
 import com.manoriega.dolarhoy.dao.EuroDao;
 import com.manoriega.dolarhoy.util.HtmlDataParser;
 import com.manoriega.dolarhoy.util.Utility;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class EuroService {
 
@@ -29,7 +33,7 @@ public class EuroService {
     private String euroUrl;
 
     @Scheduled(cron = "${scheduled.run.task}")
-    public void getInfo() throws Exception {
+    public void getEuroData() throws Exception {
         HtmlDataParser htmlDataParser = new HtmlDataParser(euroUrl);
         Euro euro = new Euro();
         euro.setCompra(htmlDataParser.getCompra());
@@ -39,6 +43,7 @@ public class EuroService {
         euro.setBancoEuroList(htmlDataParser.getBancoEuroInfo());
         euro.setActivo(true);
         euroDao.save(euro);
+        log.info("getEuroData() " + euro);
     }
 
     public List<Euro> all() {
@@ -84,22 +89,22 @@ public class EuroService {
     }
 
     public List<EuroDTO> list() {
-        List<Euro> euroList = this.allActive();
-        List<EuroDTO> euroDTOList = new ArrayList<>();
         DateFormat df2 = new SimpleDateFormat("dd-MM-yy HH:mm");
-
-        for (Euro euro : euroList) {
-            EuroDTO euroDTO = new EuroDTO();
-            euroDTO.setId(euro.getId());
-            euroDTO.setCompra(euro.getCompra());
-            euroDTO.setVenta(euro.getVenta());
-            String d1 = df2.format(euro.getFechaUltimaActualizacion());
-            euroDTO.setFechaUltimaActualizacion(d1);
-            String d2 = df2.format(euro.getFechaGuardado());
-            euroDTO.setFechaGuardado(d2);
-            euroDTO.setBancoEuroList(euro.getBancoEuroList());
-            euroDTOList.add(euroDTO);
-        }
+        List<Euro> euroList = this.allActive();
+        List<EuroDTO> euroDTOList = euroList
+                .stream()
+                .map(euro -> {
+                    EuroDTO euroDTO = new EuroDTO();
+                    euroDTO.setId(euro.getId());
+                    euroDTO.setCompra(euro.getCompra());
+                    euroDTO.setVenta(euro.getVenta());
+                    String d1 = df2.format(euro.getFechaUltimaActualizacion());
+                    euroDTO.setFechaUltimaActualizacion(d1);
+                    String d2 = df2.format(euro.getFechaGuardado());
+                    euroDTO.setFechaGuardado(d2);
+                    euroDTO.setBancoEuroList(euro.getBancoEuroList());
+                    return euroDTO;
+                }).collect(Collectors.toList());
         return euroDTOList;
     }
 
@@ -125,7 +130,6 @@ public class EuroService {
         String d1 = df2.format(euro.get().getFechaUltimaActualizacion());
         euroDTO.setFechaGuardado(d1);
         String d2 = df2.format(euro.get().getFechaGuardado());
-
         euroDTO.setFechaUltimaActualizacion(d2);
         euroDTO.setBancoEuroList(euro.get().getBancoEuroList());
         return euroDTO;

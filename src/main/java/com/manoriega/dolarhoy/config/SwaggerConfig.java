@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.manoriega.dolarhoy"))
-                .paths(regex(".*ApiController"))
+                .paths(regex(".*"))
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.manoriega.dolarhoy.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "euro")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@ToString
 public class Euro {
     @Id
     @Column
