@@ -15,6 +15,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.awt.*;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.io.IOException;
 @PropertySource(name = "EncryptedProperties", value = "classpath:encrypted.properties")
 @EnableScheduling
 @Configuration
+@EnableSwagger2
 @Import(SwaggerConfig.class)
 public class DolarhoyApplication extends SpringBootServletInitializer implements CommandLineRunner, WebMvcConfigurer {
     @Override
@@ -54,7 +56,7 @@ public class DolarhoyApplication extends SpringBootServletInitializer implements
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
+        registry.addResourceHandler("sui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
     }
 

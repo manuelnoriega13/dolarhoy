@@ -20,6 +20,7 @@ public class HtmlDataParser {
     public final static String DOLAR = "http://www.dolarhoy.com/cotizacion-dolar";
     public final static String EURO = "http://www.dolarhoy.com/cotizacion-euro";
     private String uri;
+    private Integer foo = 700;
 
     public HtmlDataParser() {
     }
@@ -141,4 +142,17 @@ public class HtmlDataParser {
         }
         return bancoEuroList;
     }
+
+    public void f   oo() {
+        System.out.println("metodo privado!@");
+    }
+
+    private HtmlDataParser(Integer foo) {
+
+    }
+
+    public static void foo2() {
+        System.out.println("foo2");
+    }
+
 }

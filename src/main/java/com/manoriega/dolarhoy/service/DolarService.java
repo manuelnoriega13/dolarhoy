@@ -31,6 +31,11 @@ public class DolarService {
     @Value("${dolar.url}")
     private String dolarUrl;
 
+    public Dolar save(Dolar dolar) {
+        dolarDao.save(dolar);
+        return dolar;
+    }
+
 
     @Scheduled(cron = "${scheduled.run.task}")
     public void getDolarData() throws Exception {
@@ -77,12 +82,12 @@ public class DolarService {
         dolarDao.deleteById(idDolar);
     }
 
-    public void update(Long idDolar, BigDecimal compra, BigDecimal venta, Date fechaGuardado, Date fechaUltimaActualizacoin, Boolean activo) {
+    public void update(Long idDolar, BigDecimal compra, BigDecimal venta, Date fechaGuardado, Date fechaUltimaActualizacion, Boolean activo) {
         Optional<Dolar> dolar = dolarDao.findById(idDolar);
         dolar.get().setCompra(compra);
         dolar.get().setVenta(venta);
         dolar.get().setFechaGuardado(fechaGuardado);
-        dolar.get().setFechaUltimaActualizacion(fechaUltimaActualizacoin);
+        dolar.get().setFechaUltimaActualizacion(fechaUltimaActualizacion);
         dolar.get().setActivo(activo);
         dolarDao.save(dolar.get());
     }

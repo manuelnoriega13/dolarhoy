@@ -34,8 +34,8 @@ public class DolarBuilder {
         return this;
     }
 
-    public DolarBuilder fechaUltimaActualizacoin(Date fechaUltimaActualizacoin){
-        this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacoin);
+    public DolarBuilder fechaUltimaActualizacion(Date fechaUltimaActualizacion){
+        this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacion);
         return this;
     }
 

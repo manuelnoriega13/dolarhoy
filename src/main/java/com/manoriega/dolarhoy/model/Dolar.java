@@ -156,8 +156,8 @@ public class Dolar {
             return this;
         }
 
-        public Builder fechaUltimaActualizacoin(Date fechaUltimaActualizacoin) {
-            this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacoin);
+        public Builder fechaUltimaActualizacion(Date fechaUltimaActualizacion) {
+            this.dolar.setFechaUltimaActualizacion(fechaUltimaActualizacion);
             return this;
         }
 
