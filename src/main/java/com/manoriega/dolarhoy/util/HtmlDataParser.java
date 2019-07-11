@@ -143,7 +143,7 @@ public class HtmlDataParser {
         return bancoEuroList;
     }
 
-    public void f   oo() {
+    public void foo() {
         System.out.println("metodo privado!@");
     }
 
